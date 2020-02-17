@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Grid Service Discovery
+Resources:
+  GridNamespace:
+    Type: "AWS::ServiceDiscovery::PrivateDnsNamespace"
+    Properties:
+      Name: selenium.grid
+      Vpc: !ImportValue GridVpc
+  HubService:
+    Type: "AWS::ServiceDiscovery::Service"
+    Properties:
+      Description: "Service discovery for grid"
+      Name: "hub"
+      NamespaceId: !Ref GridNamespace
+      DnsConfig:
+        DnsRecords:
+          - Type: A
+            TTL: 60
+          - Type: SRV
+            TTL: 60
+        RoutingPolicy: MULTIVALUE
+      HealthCheckCustomConfig:
+        FailureThreshold: 2
+  ChromeService:
+    Type: "AWS::ServiceDiscovery::Service"
+    Properties:
+      Description: "Service discovery for fargate"
+      Name: "node-chrome"
+      NamespaceId: !Ref GridNamespace
+      DnsConfig:
+        DnsRecords:
+          - Type: A
+            TTL: 60
+          - Type: SRV
+            TTL: 60
+        RoutingPolicy: MULTIVALUE
+      HealthCheckCustomConfig:
+        FailureThreshold: 2
+Outputs:
+  HubServiceArn:
+    Description: "ARN for hub service discovery"
+    Value: !GetAtt HubService.Arn
+    Export:
+      Name: HubServiceArn
+  ChromeServiceArn:
+    Description: "Arn for chrome service discovery"
+    Value: !GetAtt ChromeService.Arn
+    Export:
+      Name: ChromeServiceArn
+   

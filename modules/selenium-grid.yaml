@@ -1,0 +1,143 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Selenium Grid
+Resources:
+  # ECS Fargate Cluster
+  GridCluster:
+    Type: "AWS::ECS::Cluster"
+    Properties:
+      ClusterName: Grid
+      ClusterSettings:
+        - Name: containerInsights
+          Value: enabled
+  # Log group for the services
+  GridLogGroup:
+    Type: "AWS::Logs::LogGroup"
+    Properties:
+      LogGroupName: grid
+      RetentionInDays: 7
+  # Selenium Grid Hub task
+  GridHubTask:
+    Type: "AWS::ECS::TaskDefinition"
+    Properties:
+      Volumes:
+        - Name: "shm"
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !ImportValue FargateRoleWithLogArn
+      NetworkMode: awsvpc
+      Cpu: "512"
+      Memory: "2048"
+      ContainerDefinitions:
+        - Image: "selenium/hub:3.141.59-zirconium"
+          Name: selenium-grid
+          Command:
+            - /bin/bash -c "export GRID_HUB_HOST=\"$(cat /etc/hosts | tail -1 | awk {'print $1'})\" && /bin/bash /opt/bin/entry_point.sh"
+          EntryPoint:
+            - /bin/bash
+            - -c
+          Environment:
+            - Name: JAVA_OPTS
+              Value: "-Xmx1500m -Xms1500m"
+            - Name: GRID_MAX_SESSION
+              Value: "4"
+          PortMappings:
+            - ContainerPort: 4444
+              HostPort: 4444
+              Protocol: tcp
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-region: us-east-1
+              awslogs-group: grid
+              awslogs-stream-prefix: hub
+          HealthCheck:
+            Command:
+              - CMD-SHELL
+              - curl -sSL http://$(curl -s $ECS_CONTAINER_METADATA_URI/task | jq -r '.Containers[0].Networks[0].IPv4Addresses[0]'):4444/wd/hub/status
+  # Chrome node task
+  ChromeTask:
+    Type: "AWS::ECS::TaskDefinition"
+    DependsOn: GridHub
+    Properties:
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !ImportValue FargateRoleWithLogArn
+      NetworkMode: awsvpc
+      Cpu: "512"
+      Memory: "2048"
+      ContainerDefinitions:
+        - Image: "selenium/node-chrome:3.141.59-zirconium"
+          Name: node-chrome
+          Command:
+            - /bin/bash -c "export NODE_HOST=\"$(curl -s $ECS_CONTAINER_METADATA_URI/task | jq -r '.Containers[0].Networks[0].IPv4Addresses[0]')\" && /bin/bash /opt/bin/entry_point.sh"
+          EntryPoint:
+            - /bin/bash
+            - -c
+          Environment:
+            - Name: HUB_HOST
+              Value : "hub.selenium.grid"
+            - Name: HUB_PORT
+              Value: "4444"
+            - Name: JAVA_OPTS
+              Value: "-Xmx1536m -Xms1536m"
+            - Name: START_XVFB # makes it headless
+              Value: "false"
+            - Name: DISPLAY
+              Value: ":99"
+            - Name: DBUS_SESSION_BUS_ADDRESS
+              Value: "/dev/null"
+          PortMappings:
+            - ContainerPort: 5555
+              HostPort: 5555
+              Protocol: tcp
+          Privileged: false
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-region: us-east-1
+              awslogs-group: grid
+              awslogs-stream-prefix: chrome
+  # Services
+  GridHub:
+    Type: "AWS::ECS::Service"
+    Properties:
+      ServiceName: GridHub
+      Cluster: !Ref GridCluster
+      LaunchType: FARGATE
+      SchedulingStrategy: REPLICA
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          Subnets:
+            - !ImportValue GridSubnet2
+            - !ImportValue GridSubnet3
+          SecurityGroups:
+            - !ImportValue GridSecurityGroup
+          AssignPublicIp: ENABLED
+      DesiredCount: 1
+      TaskDefinition: !Ref GridHubTask
+      ServiceRegistries:
+        - RegistryArn: !ImportValue HubServiceArn
+          Port: 4444
+      LoadBalancers:
+        - ContainerName: "selenium-grid"
+          ContainerPort: 4444
+          TargetGroupArn: !ImportValue GridHubGroupArn
+  NodeChrome:
+    Type: "AWS::ECS::Service"
+    Properties:
+      ServiceName: NodeChrome
+      Cluster: !Ref GridCluster
+      LaunchType: FARGATE
+      SchedulingStrategy: REPLICA
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          Subnets:
+            - !ImportValue GridSubnet1
+          SecurityGroups:
+            - !ImportValue GridSecurityGroup
+          AssignPublicIp: DISABLED
+      DesiredCount: 1
+      TaskDefinition: !Ref ChromeTask
+      ServiceRegistries:
+        - RegistryArn: !ImportValue ChromeServiceArn
+          Port: 5555
