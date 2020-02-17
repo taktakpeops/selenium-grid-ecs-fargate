@@ -1,0 +1,112 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: IAM roles and more
+Resources:
+  FargateRoleWithLog:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - "ecs-tasks.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Path: /
+      Policies:
+        - PolicyName: fargate
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "ecr:GetAuthorizationToken"
+                  - "ecr:BatchCheckLayerAvailability"
+                  - "ecr:GetDownloadUrlForLayer"
+                  - "ecr:BatchGetImage"
+                  - "logs:CreateLogStream"
+                  - "logs:PutLogEvents"
+                Resource: "*"
+  ECSRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+              - ecs.amazonaws.com
+          Action:
+            - "sts:AssumeRole"
+      Path: /
+      Policies:
+      - PolicyName: assume-ecs
+        PolicyDocument:
+          Statement:
+          - Effect: Allow
+            Action:
+              - "iam:CreateServiceLinkedRole"
+              - "iam:PutRolePolicy"
+            Resource: "arn:aws:iam::*:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS*"
+            Condition:
+              StringLike:
+                "iam:AWSServiceName": "ecs.amazonaws.com"
+      - PolicyName: ecs-service
+        PolicyDocument:
+          Statement:
+          - Effect: Allow
+            Action:
+              - "ec2:AttachNetworkInterface"
+              - "ec2:CreateNetworkInterface"
+              - "ec2:CreateNetworkInterfacePermission"
+              - "ec2:DeleteNetworkInterface"
+              - "ec2:DeleteNetworkInterfacePermission"
+              - "ec2:Describe*"
+              - "ec2:DetachNetworkInterface"
+              - "elasticloadbalancing:DeregisterInstancesFromLoadBalancer"
+              - "elasticloadbalancing:DeregisterTargets"
+              - "elasticloadbalancing:Describe*"
+              - "elasticloadbalancing:RegisterInstancesWithLoadBalancer"
+              - "elasticloadbalancing:RegisterTargets"
+            Resource: "*"
+  AutoScalingRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+              - application-autoscaling.amazonaws.com
+          Action:
+            - "sts:AssumeRole"
+      Path: /
+      Policies:
+      - PolicyName: service-autoscaling
+        PolicyDocument:
+          Statement:
+          - Effect: Allow
+            Action:
+              - "application-autoscaling:*"
+              - "cloudwatch:DescribeAlarms"
+              - "cloudwatch:PutMetricAlarm"
+              - "ecs:DescribeServices"
+              - "ecs:UpdateService"
+            Resource: "*"
+Outputs:
+  FargateRoleWithLogArn:
+    Description: "The role ARN for a fargate task"
+    Value: !GetAtt FargateRoleWithLog.Arn
+    Export:
+      Name: FargateRoleWithLogArn
+  ECSRoleArn:
+    Description: "The role ARN for ECS"
+    Value: !GetAtt ECSRole.Arn
+    Export:
+      Name: ECSRoleArn
+  AutoScalingRoleArn:
+    Description: "The role ARN for autoscaling apps"
+    Value: !GetAtt AutoScalingRole.Arn
+    Export:
+      Name: AutoScalingRoleArn

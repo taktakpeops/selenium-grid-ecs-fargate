@@ -1,0 +1,101 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Auto scalers for Selenium Grid
+Resources:
+  GridHubAutoScalerTarget:
+    Type: "AWS::ApplicationAutoScaling::ScalableTarget"
+    Properties:
+      ResourceId: service/Grid/GridHub
+      RoleARN: !ImportValue AutoScalingRoleArn
+      ScalableDimension: "ecs:service:DesiredCount"
+      ServiceNamespace: "ecs"
+      MinCapacity: 1
+      MaxCapacity: 3
+  # Auto-scaler policies for the Grid
+  GridHubAutoScalerDownPolicy:
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    DependsOn: GridHubAutoScalerTarget
+    Properties:
+      PolicyName: scale/Grid/GridHub/down
+      PolicyType: StepScaling
+      ResourceId: service/Grid/GridHub
+      ScalableDimension: "ecs:service:DesiredCount"
+      ServiceNamespace: "ecs"
+      StepScalingPolicyConfiguration:
+        AdjustmentType: "ChangeInCapacity"
+        StepAdjustments:
+          - MetricIntervalUpperBound: 0
+            ScalingAdjustment: -1
+        MetricAggregationType: "Average"
+        Cooldown: 60
+  GridHubAutoScalerUpPolicy:
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    DependsOn: GridHubAutoScalerTarget
+    Properties:
+      PolicyName: scale/Grid/GridHub/up
+      PolicyType: StepScaling
+      ResourceId: service/Grid/GridHub
+      ScalableDimension: "ecs:service:DesiredCount"
+      ServiceNamespace: "ecs"
+      StepScalingPolicyConfiguration:
+        AdjustmentType: "ChangeInCapacity"
+        StepAdjustments:
+          - MetricIntervalLowerBound: 0
+            MetricIntervalUpperBound: 15
+            ScalingAdjustment: 1
+          - MetricIntervalLowerBound: 15
+            MetricIntervalUpperBound: 25
+            ScalingAdjustment: 2
+          - MetricIntervalLowerBound: 25
+            ScalingAdjustment: 3
+        MetricAggregationType: "Average"
+        Cooldown: 60
+  # Auto-scalers for Chrome
+  NodeChromeAutoScalerTarget:
+    Type: "AWS::ApplicationAutoScaling::ScalableTarget"
+    Properties:
+      ResourceId: service/Grid/NodeChrome
+      RoleARN: !ImportValue AutoscalingRoleArn
+      ScalableDimension: "ecs:service:DesiredCount"
+      ServiceNamespace: "ecs"
+      MinCapacity: 1
+      MaxCapacity: 3
+  # Auto-scaler policies for Chrome
+  NodeChromeAutoScalerDownPolicy:
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    DependsOn: NodeChromeAutoScalerTarget
+    Properties:
+      PolicyName: service/Grid/NodeChrome/down
+      PolicyType: StepScaling
+      ResourceId: service/Grid/NodeChrome
+      ScalableDimension: "ecs:service:DesiredCount"
+      ServiceNamespace: "ecs"
+      StepScalingPolicyConfiguration:
+        AdjustmentType: "ChangeInCapacity"
+        StepAdjustments:
+          - MetricIntervalUpperBound: 0
+            ScalingAdjustment: -1
+        MetricAggregationType: "Average"
+        Cooldown: 60
+  NodeChromeAutoScalerUpPolicy:
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    DependsOn: NodeChromeAutoScalerTarget
+    Properties:
+      PolicyName: service/Grid/NodeChrome/up
+      PolicyType: StepScaling
+      ResourceId: service/Grid/NodeChrome
+      ScalableDimension: "ecs:service:DesiredCount"
+      ServiceNamespace: "ecs"
+      StepScalingPolicyConfiguration:
+        AdjustmentType: "ChangeInCapacity"
+        StepAdjustments:
+          - MetricIntervalLowerBound: 0
+            MetricIntervalUpperBound: 15
+            ScalingAdjustment: 1
+          - MetricIntervalLowerBound: 15
+            MetricIntervalUpperBound: 25
+            ScalingAdjustment: 2
+          - MetricIntervalLowerBound: 25
+            ScalingAdjustment: 3
+        MetricAggregationType: "Average"
+        Cooldown: 60
+ 
