@@ -7,10 +7,10 @@
   resolved "https://registry.npmjs.org/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
-"@wdio/cli@^5.18.7":
-  version "5.18.7"
-  resolved "https://registry.npmjs.org/@wdio/cli/-/cli-5.18.7.tgz#1ac56ad96137b3d838909f893eb3e296df6ffea0"
-  integrity sha512-ovqNuNnQmAJCYbz+m7mynkJ74j9DkO3OFTnfQguBY29Su9L/Fm2szKmJvuHkbhb2MtTqvFkBea7xsD87TAn9lA==
+"@wdio/cli@^5.22.1":
+  version "5.22.1"
+  resolved "https://registry.yarnpkg.com/@wdio/cli/-/cli-5.22.1.tgz#0b10d98d1dce87fd71c9bae51379028dd35ce1be"
+  integrity sha512-kcIT1mnUVe4J49sibL+CBa9NjymCzOCyXC8hHjrztzGAe9Cl5UBut8dpm56HtrMCcHZ56WEOxxv8KrnrUgDCKg==
   dependencies:
     "@wdio/config" "5.18.4"
     "@wdio/logger" "5.16.10"
@@ -26,7 +26,7 @@
     lodash.pickby "^4.6.0"
     lodash.union "^4.6.0"
     log-update "^3.2.0"
-    webdriverio "5.18.7"
+    webdriverio "5.22.1"
     yargs "^15.0.1"
     yarn-install "^1.0.0"
 
@@ -68,11 +68,6 @@
     "@wdio/logger" "5.16.10"
     "@wdio/utils" "5.18.6"
     mocha "^7.0.1"
-
-"@wdio/protocols@5.18.7":
-  version "5.18.7"
-  resolved "https://registry.npmjs.org/@wdio/protocols/-/protocols-5.18.7.tgz#d470aeff16054195868341f9b74281fb3bb513bf"
-  integrity sha512-Docjl1mGwjsd7xU/eEMspWPWiMUniHxtzXfr/7aDTIlkfh5fazR5NmBPVLHBZNYbe+wPndgc2i/WNZHAKVTx7A==
 
 "@wdio/protocols@5.22.1":
   version "5.22.1"
@@ -2074,18 +2069,6 @@ wcwidth@>=1.0.1:
   dependencies:
     defaults "^1.0.3"
 
-webdriver@5.18.7:
-  version "5.18.7"
-  resolved "https://registry.npmjs.org/webdriver/-/webdriver-5.18.7.tgz#78fd17228bb2668800d26bc60bc92c1c1eb194b4"
-  integrity sha512-KmivyLYCuFyEruCNloDjIQl05i/fybTwp4HNdSnxjPi0K0TIhWZ35sg6tQTgEyRIEgmLOnlhoY1WciuWm5Lr8Q==
-  dependencies:
-    "@wdio/config" "5.18.4"
-    "@wdio/logger" "5.16.10"
-    "@wdio/protocols" "5.18.7"
-    "@wdio/utils" "5.18.6"
-    lodash.merge "^4.6.1"
-    request "^2.83.0"
-
 webdriver@5.22.1:
   version "5.22.1"
   resolved "https://registry.yarnpkg.com/webdriver/-/webdriver-5.22.1.tgz#fe2e7ec12f8e8f7623ab9956ea1fc9d998c180ea"
@@ -2097,27 +2080,6 @@ webdriver@5.22.1:
     "@wdio/utils" "5.18.6"
     lodash.merge "^4.6.1"
     request "^2.83.0"
-
-webdriverio@5.18.7:
-  version "5.18.7"
-  resolved "https://registry.npmjs.org/webdriverio/-/webdriverio-5.18.7.tgz#ccfd39f511c32a975a84d2ba977d61c82869eadc"
-  integrity sha512-VZJ4e4oqoqud3Ytwf5TBtRQOeMkxFHnIke3Tt0/bcgLb6dFgQ29v38syZKbyHRlTO2RGKQ+/qvfdDYpAW2O0OQ==
-  dependencies:
-    "@wdio/config" "5.18.4"
-    "@wdio/logger" "5.16.10"
-    "@wdio/repl" "5.18.6"
-    "@wdio/utils" "5.18.6"
-    archiver "^3.0.0"
-    css-value "^0.0.1"
-    grapheme-splitter "^1.0.2"
-    lodash.clonedeep "^4.5.0"
-    lodash.isobject "^3.0.2"
-    lodash.isplainobject "^4.0.6"
-    lodash.zip "^4.2.0"
-    resq "^1.6.0"
-    rgb2hex "^0.1.0"
-    serialize-error "^5.0.0"
-    webdriver "5.18.7"
 
 webdriverio@5.22.1:
   version "5.22.1"
