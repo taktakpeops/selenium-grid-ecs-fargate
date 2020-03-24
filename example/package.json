@@ -14,7 +14,7 @@
   "author": "taktakpeops",
   "license": "ISC",
   "dependencies": {
-    "@wdio/cli": "^5.22.3"
+    "@wdio/cli": "^5.22.4"
   },
   "devDependencies": {
     "@wdio/local-runner": "^5.22.1",
