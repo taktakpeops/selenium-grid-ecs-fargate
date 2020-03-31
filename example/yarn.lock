@@ -85,23 +85,23 @@
     loglevel-plugin-prefix "^0.8.4"
     strip-ansi "^6.0.0"
 
-"@wdio/logger@6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@wdio/logger/-/logger-6.0.1.tgz#f239cc767b74e79fa3792c697d517974eb35d51a"
-  integrity sha512-Tz9k5qsCBI8soFgum7irPdU5wllMAIlB4ymhyDNRgVhD13f2TYE5AqyHJ+G7ABLGnH0l0HLKbB52u80RU4+TIg==
+"@wdio/logger@6.0.8":
+  version "6.0.8"
+  resolved "https://registry.yarnpkg.com/@wdio/logger/-/logger-6.0.8.tgz#05bff1c02f207588bd834ee3bc1cff01f506b486"
+  integrity sha512-Ic/xp8DkwSjAMlZFIAQFOSrRcRjqN+MrphmxOxKd25ZPWo8xM1AAUZoyIrwd71AVEC7GQXMkbqaafhwgXiy5Lw==
   dependencies:
     chalk "^3.0.0"
     loglevel "^1.6.0"
     loglevel-plugin-prefix "^0.8.4"
     strip-ansi "^6.0.0"
 
-"@wdio/mocha-framework@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@wdio/mocha-framework/-/mocha-framework-6.0.4.tgz#fc0a59d5b965d5193f808dcacdb4ae58c2a14998"
-  integrity sha512-XJbgCnQ8ZXnaF16HPrCJxeVBfL2nyu06kuMXMH2ztzQQNkKAqslevV9UOV458vTB2+/IDrzI2BMAW2eZNzjjlA==
+"@wdio/mocha-framework@^6.0.8":
+  version "6.0.8"
+  resolved "https://registry.yarnpkg.com/@wdio/mocha-framework/-/mocha-framework-6.0.8.tgz#66885815ca0a01d7b758e3618c4226ebe77b473a"
+  integrity sha512-nLqwrzv+VriQWFk37nlrgzdFbf1Gz8fjX+viK+YaeLsD6/AsP2bMn5VHJJFk+hXFNib21dGKhkce9+sKmqK1Sw==
   dependencies:
-    "@wdio/logger" "6.0.1"
-    "@wdio/utils" "6.0.4"
+    "@wdio/logger" "6.0.8"
+    "@wdio/utils" "6.0.8"
     mocha "^7.0.1"
 
 "@wdio/protocols@5.22.1":
@@ -163,12 +163,12 @@
     "@wdio/logger" "5.16.10"
     deepmerge "^4.0.0"
 
-"@wdio/utils@6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@wdio/utils/-/utils-6.0.4.tgz#2d5bf1c827e21ca2000daa2b065615462c169455"
-  integrity sha512-GZ0Fc9icU2yJSp4I+VCdT0K0cIifQjXMNy2Ck+NR3MIA8QG2XExYk7l7Uypn7rOZ49X7shsoLVvng/YfYaRaOQ==
+"@wdio/utils@6.0.8":
+  version "6.0.8"
+  resolved "https://registry.yarnpkg.com/@wdio/utils/-/utils-6.0.8.tgz#d52dd0d49c9ea03a7f103620a765316de54014aa"
+  integrity sha512-X7utmACYC1NCWYjF4g5ME1XCFlYTQNX4ULtBOT6/HUe7hnwiiri6/yBQJ4ab8l87B+Pvrdt5xyMMoP3fPH+Btw==
   dependencies:
-    "@wdio/logger" "6.0.1"
+    "@wdio/logger" "6.0.8"
 
 ajv@^6.5.5:
   version "6.11.0"
