@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@wdio/local-runner": "^5.22.1",
-    "@wdio/mocha-framework": "^6.0.4",
+    "@wdio/mocha-framework": "^6.0.12",
     "@wdio/spec-reporter": "^5.18.7",
     "@wdio/sync": "^5.20.1"
   }
