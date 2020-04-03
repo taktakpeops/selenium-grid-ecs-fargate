@@ -85,23 +85,23 @@
     loglevel-plugin-prefix "^0.8.4"
     strip-ansi "^6.0.0"
 
-"@wdio/logger@6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@wdio/logger/-/logger-6.0.1.tgz#f239cc767b74e79fa3792c697d517974eb35d51a"
-  integrity sha512-Tz9k5qsCBI8soFgum7irPdU5wllMAIlB4ymhyDNRgVhD13f2TYE5AqyHJ+G7ABLGnH0l0HLKbB52u80RU4+TIg==
+"@wdio/logger@6.0.12":
+  version "6.0.12"
+  resolved "https://registry.yarnpkg.com/@wdio/logger/-/logger-6.0.12.tgz#9b4430e47f4ce5edfc0cbb05279a7ac604c2b908"
+  integrity sha512-qROnV6vHsLT2CI+k9hGbO4qXjW313BZW8HodWhBMlu391lt4RLLHqZAW0na1eTG7BeazKQGP/QtBLbLycQzrFg==
   dependencies:
     chalk "^3.0.0"
     loglevel "^1.6.0"
     loglevel-plugin-prefix "^0.8.4"
     strip-ansi "^6.0.0"
 
-"@wdio/mocha-framework@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@wdio/mocha-framework/-/mocha-framework-6.0.4.tgz#fc0a59d5b965d5193f808dcacdb4ae58c2a14998"
-  integrity sha512-XJbgCnQ8ZXnaF16HPrCJxeVBfL2nyu06kuMXMH2ztzQQNkKAqslevV9UOV458vTB2+/IDrzI2BMAW2eZNzjjlA==
+"@wdio/mocha-framework@^6.0.13":
+  version "6.0.13"
+  resolved "https://registry.yarnpkg.com/@wdio/mocha-framework/-/mocha-framework-6.0.13.tgz#2116d88261251083bc5cf0c12a8a732383e45066"
+  integrity sha512-TNGvl51llDS5kmxV6ArvbjCJqO4r+cwbCPQEMV5sdi2WPtI+EwVuGuY+OMqizCTVObpNM6NuE3qqvlEYuk8yvQ==
   dependencies:
-    "@wdio/logger" "6.0.1"
-    "@wdio/utils" "6.0.4"
+    "@wdio/logger" "6.0.12"
+    "@wdio/utils" "6.0.13"
     mocha "^7.0.1"
 
 "@wdio/protocols@5.22.1":
@@ -163,12 +163,13 @@
     "@wdio/logger" "5.16.10"
     deepmerge "^4.0.0"
 
-"@wdio/utils@6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@wdio/utils/-/utils-6.0.4.tgz#2d5bf1c827e21ca2000daa2b065615462c169455"
-  integrity sha512-GZ0Fc9icU2yJSp4I+VCdT0K0cIifQjXMNy2Ck+NR3MIA8QG2XExYk7l7Uypn7rOZ49X7shsoLVvng/YfYaRaOQ==
+"@wdio/utils@6.0.13":
+  version "6.0.13"
+  resolved "https://registry.yarnpkg.com/@wdio/utils/-/utils-6.0.13.tgz#5688e235c0dfcd227946e3372d48f1bc88a70530"
+  integrity sha512-S/Psta9zV2lg5jwrxZqID3NcVutn2XbZrnRhCUz0s2fzrvsuqtprvCNzxfnWufQ6MlcdQJcf4fsu+SlnUE8yZw==
   dependencies:
-    "@wdio/logger" "6.0.1"
+    "@wdio/logger" "6.0.12"
+    is-base64 "^1.1.0"
 
 ajv@^6.5.5:
   version "6.11.0"
@@ -1079,6 +1080,11 @@ is-arrayish@^0.2.1:
   version "0.2.1"
   resolved "https://registry.npmjs.org/is-arrayish/-/is-arrayish-0.2.1.tgz#77c99840527aa8ecb1a8ba697b80645a7a926a9d"
   integrity sha1-d8mYQFJ6qOyxqLppe4BkWnqSap0=
+
+is-base64@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/is-base64/-/is-base64-1.1.0.tgz#8ce1d719895030a457c59a7dcaf39b66d99d56b4"
+  integrity sha512-Nlhg7Z2dVC4/PTvIFkgVVNvPHSO2eR/Yd0XzhGiXCXEvWnptXlXa/clQ8aePPiMuxEGcWfzWbGw2Fe3d+Y3v1g==
 
 is-binary-path@~2.1.0:
   version "2.1.0"
