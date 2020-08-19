@@ -54,7 +54,7 @@ Resources:
     Type: "AWS::ApplicationAutoScaling::ScalableTarget"
     Properties:
       ResourceId: service/Grid/NodeChrome
-      RoleARN: !ImportValue AutoscalingRoleArn
+      RoleARN: !ImportValue AutoScalingRoleArn
       ScalableDimension: "ecs:service:DesiredCount"
       ServiceNamespace: "ecs"
       MinCapacity: 1
