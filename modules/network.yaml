@@ -207,3 +207,8 @@ Outputs:
     Value: !Ref GridHubGroup
     Export:
       Name: GridHubGroupArn
+  GridLoadBalancerDNSName:
+    Description: "Grid load balancer DNS name"
+    Value: !GetAtt GridLoadBalancer.DNSName
+    Export:
+      Name: GridLoadBalancerDNSName
