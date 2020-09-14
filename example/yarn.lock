@@ -17,6 +17,13 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.0.tgz#30d2d09f623fe32cde9cb582c7a6eda2788ce4a8"
   integrity sha512-WE4IOAC6r/yBZss1oQGM5zs2D7RuKR6Q+w+X2SouPofnWn+LbCqClRyhO3ZE7Ix8nmFgo/oVuuE01cJT2XB13A==
 
+"@types/puppeteer@^3.0.1":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-3.0.2.tgz#20085220593b560c7332b6d46aecaf81ae263540"
+  integrity sha512-JRuHPSbHZBadOxxFwpyZPeRlpPTTeMbQneMdpFd8LXdyNfFSiX950CGewdm69g/ipzEAXAmMyFF1WOWJOL/nKw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/request@^2.48.4":
   version "2.48.4"
   resolved "https://registry.yarnpkg.com/@types/request/-/request-2.48.4.tgz#df3d43d7b9ed3550feaa1286c6eabf0738e6cf7e"
@@ -104,6 +111,16 @@
     loglevel-plugin-prefix "^0.8.4"
     strip-ansi "^6.0.0"
 
+"@wdio/logger@6.4.7":
+  version "6.4.7"
+  resolved "https://registry.yarnpkg.com/@wdio/logger/-/logger-6.4.7.tgz#6d83033a0d7ef20f3b2cc2420956105903a6a4e7"
+  integrity sha512-Mm/rsRa/1u/l8/IrNKM2c9tkvLE90i83d3KZ0Ujh4cicYJv+lNi9whsCi+p3QNFCo64nJ6bfC+0Ho5VgD3MiKw==
+  dependencies:
+    chalk "^4.0.0"
+    loglevel "^1.6.0"
+    loglevel-plugin-prefix "^0.8.4"
+    strip-ansi "^6.0.0"
+
 "@wdio/mocha-framework@^6.1.0":
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/@wdio/mocha-framework/-/mocha-framework-6.1.0.tgz#23be313e6ca668fb7ad29c7e2ca73d269095d5ff"
@@ -159,12 +176,13 @@
     easy-table "^1.1.1"
     pretty-ms "^6.0.0"
 
-"@wdio/sync@^6.1.0":
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/@wdio/sync/-/sync-6.1.0.tgz#b3bb65a6079d69577777154e440d2e28c911c888"
-  integrity sha512-0dG/JX7jahtorZbJBekWt9p6J4WEYe8rHcdImNE7qdv4HGjDzLvQw554RZKvANKRfDQaPligExBfLHY8B/zHxw==
+"@wdio/sync@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@wdio/sync/-/sync-6.5.0.tgz#c1189df75dbd19d4aea9efe795fcc21b0b28fde8"
+  integrity sha512-VRVcfuaTo0BHNEfjzFmxIsbAFUPrZwNcnwJ1gyUi1lXaiYOvu0g6Uvy2gOJ75v+oZjcalY69T+AmcIuIWNSPbA==
   dependencies:
-    "@wdio/logger" "6.0.16"
+    "@types/puppeteer" "^3.0.1"
+    "@wdio/logger" "6.4.7"
     fibers "^4.0.1"
 
 "@wdio/utils@5.18.6":
